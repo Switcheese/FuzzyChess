@@ -17,8 +17,8 @@ namespace FuzzyLogic
         [SerializeField]
         private FuzzyRuleFunction[] fuzzyRules;
 
-        private EnumDictionary<FuzzyFunctionKind, FuzzySet> dicFuzzyFunctions;
-        private EnumDictionary<FuzzyRuleKind, FuzzyRule> dicFuzzyRules;
+        private EnumDictionary<DF_FuzzySet, FuzzySet> dicFuzzyFunctions;
+        private EnumDictionary<DF_FuzzyRule, FuzzyRule> dicFuzzyRules;
         #endregion
 
         // Property
@@ -30,8 +30,8 @@ namespace FuzzyLogic
         #region MonoBehaviour
         private void Awake()
         {
-            dicFuzzyFunctions = new EnumDictionary<FuzzyFunctionKind, FuzzySet>();
-            dicFuzzyRules = new EnumDictionary<FuzzyRuleKind, FuzzyRule>();
+            dicFuzzyFunctions = new EnumDictionary<DF_FuzzySet, FuzzySet>();
+            dicFuzzyRules = new EnumDictionary<DF_FuzzyRule, FuzzyRule>();
 
             for (int i = 0; i < fuzzyFunctions.Length; i++)
             {
@@ -58,7 +58,7 @@ namespace FuzzyLogic
         // Public Method
         #region Public Method
 
-        public float GetRuleWeight(FuzzyRuleKind ruleKind)
+        public float GetRuleWeight(DF_FuzzyRule ruleKind)
         {
             if (dicFuzzyRules.ContainsKey(ruleKind))
             {
@@ -73,7 +73,7 @@ namespace FuzzyLogic
             }
         }
 
-        public void SetFuzzyValue(FuzzyFunctionKind functionKind, int value)
+        public void SetFuzzyValue(DF_FuzzySet functionKind, int value)
         {
             if (dicFuzzyFunctions.ContainsKey(functionKind))
             {
@@ -86,26 +86,7 @@ namespace FuzzyLogic
 #endif
             }
         }
-
-
-        public static float AND(float v1, float v2)
-        {
-            if (v1 == v2)
-                return v1;
-            else if (v1 > v2)
-                return v2;
-            else
-                return v1;
-        }
-        public static float OR(float v1, float v2)
-        {
-            if (v1 == v2)
-                return v1;
-            else if (v1 > v2)
-                return v1;
-            else
-                return v2;
-        }
+        
         #endregion
     }
 }

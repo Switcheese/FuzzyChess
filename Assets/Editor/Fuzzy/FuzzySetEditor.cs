@@ -34,8 +34,8 @@ namespace FuzzyLogic
             EditorGUILayout.LabelField("퍼지의 Enum값 범위를 지정해주세요.", style);
             EditorGUILayout.Space(); EditorGUILayout.Space();
 
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("Kind_Start"), new GUIContent("시작"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("Kind_End"), new GUIContent("끝"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("Kind_Start"), new GUIContent("시작 ST"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("Kind_End"), new GUIContent("끝 ED"));
             EditorGUILayout.Space(); EditorGUILayout.Space(); EditorGUILayout.Space();
 
             fuzzySet.SetEnumStartEnd();

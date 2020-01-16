@@ -13,10 +13,10 @@ namespace FuzzyLogic
     public class FuzzySet : ScriptableObject
     {
         [SerializeField]
-        private FuzzySetKind Kind_Start, Kind_End;
+        private MembershipRange Kind_Start, Kind_End;
         [SerializeField]
         protected FuzzyData[] fuzzyDatas;
-        protected EnumDictionary<MembershipKind, AnimationCurve> dicFuzzyData;
+        protected EnumDictionary<Membership, AnimationCurve> dicFuzzyData;
 
         protected int currentValue;
 
@@ -37,10 +37,10 @@ namespace FuzzyLogic
         {
             if (dicFuzzyData == null && fuzzyDatas != null)
             {
-                dicFuzzyData = new EnumDictionary<MembershipKind, AnimationCurve>();
+                dicFuzzyData = new EnumDictionary<Membership, AnimationCurve>();
                 for (int i = 0; i < this.fuzzyDatas.Length; i++)
                 {
-                    var key = (MembershipKind)((int)fuzzyDatas[i].kind + (int)this.Kind_Start);
+                    var key = (Membership)((int)fuzzyDatas[i].kind + (int)this.Kind_Start);
                     if (!dicFuzzyData.ContainsKey(key))
                     {
                         dicFuzzyData.Add(key, fuzzyDatas[i].membership);
@@ -55,7 +55,7 @@ namespace FuzzyLogic
             currentValue = val;
         }
 
-        public float GetEvaluate(MembershipKind kind)
+        public float GetEvaluate(Membership kind)
         {
             if (dicFuzzyData.ContainsKey(kind))
             {
@@ -69,7 +69,7 @@ namespace FuzzyLogic
                 return 0;
             }
         }
-        public float GetEvaluate(MembershipKind kind, int val)
+        public float GetEvaluate(Membership kind, int val)
         {
             if (dicFuzzyData.ContainsKey(kind))
             {

@@ -14,7 +14,7 @@ namespace FuzzyLogic
         public Condition v1;
         public Calculate calculate;
         public Condition v2;
-        public MembershipKind result;
+        public Membership result;
 
         public float ExcuteCalculate()
         {
@@ -22,10 +22,10 @@ namespace FuzzyLogic
             switch (calculate)
             {
                 case Calculate.AND:
-                    resultVal = FuzzyManager.AND(v1.GetEvaluate(), v2.GetEvaluate());
+                    resultVal = FuzzyCommon.AND(v1.GetEvaluate(), v2.GetEvaluate());
                     break;
                 case Calculate.OR:
-                    resultVal = FuzzyManager.OR(v1.GetEvaluate(), v2.GetEvaluate());
+                    resultVal = FuzzyCommon.OR(v1.GetEvaluate(), v2.GetEvaluate());
                     break;
             }
             return resultVal;

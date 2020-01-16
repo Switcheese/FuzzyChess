@@ -13,10 +13,10 @@ namespace FuzzyLogic
     public class FuzzyRule : ScriptableObject
     {
         [SerializeField]
-        private FuzzySetKind Kind_Start, Kind_End;
+        private MembershipRange Kind_Start, Kind_End;
         [SerializeField]
         protected FuzzyData[] fuzzyDatas;
-        protected EnumDictionary<MembershipKind, AnimationCurve> dicFuzzyData;
+        protected EnumDictionary<Membership, AnimationCurve> dicFuzzyData;
 
         protected int currentValue;
 
@@ -39,10 +39,10 @@ namespace FuzzyLogic
         {
             if (dicFuzzyData == null && fuzzyDatas != null)
             {
-                dicFuzzyData = new EnumDictionary<MembershipKind, AnimationCurve>();
+                dicFuzzyData = new EnumDictionary<Membership, AnimationCurve>();
                 for (int i = 0; i < this.fuzzyDatas.Length; i++)
                 {
-                    var key = (MembershipKind)((int)fuzzyDatas[i].kind + (int)this.Kind_Start);
+                    var key = (Membership)((int)fuzzyDatas[i].kind + (int)this.Kind_Start);
                     if (!dicFuzzyData.ContainsKey(key))
                     {
                         dicFuzzyData.Add(key, fuzzyDatas[i].membership);
@@ -56,7 +56,7 @@ namespace FuzzyLogic
             currentValue = val;
         }
 
-        public float GetEvaluate(MembershipKind kind)
+        public float GetEvaluate(Membership kind)
         {
             if (dicFuzzyData.ContainsKey(kind))
             {
@@ -70,7 +70,7 @@ namespace FuzzyLogic
                 return 0;
             }
         }
-        public float GetEvaluate(MembershipKind kind, int val)
+        public float GetEvaluate(Membership kind, int val)
         {
             if (dicFuzzyData.ContainsKey(kind))
             {
@@ -101,7 +101,7 @@ namespace FuzzyLogic
         /// </summary>
         /// <param name="ruleKind"></param>
         /// <returns></returns>
-        public float GetWeight(FuzzyRuleKind ruleKind)
+        public float GetWeight(DF_FuzzyRule ruleKind)
         {
             List<int> memKind = new List<int>(membershipCount);
 
@@ -111,20 +111,28 @@ namespace FuzzyLogic
             // 추가시켜줘야 하는부분
             switch (ruleKind)
             {
-                case FuzzyRuleKind.IgnoreGuardAttack:
+                case DF_FuzzyRule.VisualField_Width:
                     {
                         memKind.AddRange(new int[] {
-                    (int)MembershipKind.Ignore,
-                    (int)MembershipKind.Guard,
-                    (int)MembershipKind.Attack });
+                            (int)Membership.VisualField_Width_Narrow,
+                            (int)Membership.VisualField_Width_Usually,
+                            (int)Membership.VisualField_Width_Wide });
+                    }
+                    break;
+                case DF_FuzzyRule.VisualField_Distance:
+                    {
+                        memKind.AddRange(new int[] {
+                            (int)Membership.VisualField_Distance_Close,
+                            (int)Membership.VisualField_Distance_Usually,
+                            (int)Membership.VisualField_Distance_Far });
                     }
                     break;
             }
 
             for (int i = 0; i < memKind.Count; i++)
             {
-                var aver = GetKeyMaxAverage((MembershipKind)memKind[i]);
-                var rel = GetReliability((MembershipKind)memKind[i]);
+                var aver = GetKeyMaxAverage((Membership)memKind[i]);
+                var rel = GetReliability((Membership)memKind[i]);
                 cardinal += (aver * rel);
                 ordinal += rel;
             }
@@ -134,7 +142,7 @@ namespace FuzzyLogic
         }
 
 
-        private float GetKeyMaxAverage(MembershipKind kind)
+        private float GetKeyMaxAverage(Membership kind)
         {
             if (dicFuzzyData.ContainsKey(kind))
             {
@@ -164,15 +172,15 @@ namespace FuzzyLogic
         /// </summary>
         /// <param name="kind">구하고 싶은 퍼지</param>
         /// <returns></returns>
-        private float GetReliability(MembershipKind kind)
+        private float GetReliability(Membership kind)
         {
             float resultVal = 0f;
             for (int i = 0; i < rules.Length; i++)
             {
-                var rstKind = (MembershipKind)((int)rules[i].result + (int)this.Kind_Start);
+                var rstKind = (Membership)((int)rules[i].result + (int)this.Kind_Start);
                 if (rstKind == kind)
                 {
-                    resultVal = FuzzyManager.OR(resultVal, rules[i].ExcuteCalculate());
+                    resultVal = FuzzyCommon.OR(resultVal, rules[i].ExcuteCalculate());
                 }
             }
             return resultVal;

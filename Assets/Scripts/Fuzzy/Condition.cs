@@ -13,7 +13,7 @@ namespace FuzzyLogic
     public class Condition
     {
         public FuzzySet fuzzySet;
-        public MembershipKind kind;
+        public Membership kind;
 
         public float GetEvaluate()
         {

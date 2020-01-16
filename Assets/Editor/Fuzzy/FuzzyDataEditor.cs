@@ -11,7 +11,7 @@ namespace FuzzyLogic
     [CustomPropertyDrawer(typeof(FuzzyData))]
     public class FuzzyDataEditor : PropertyDrawer
     {
-        const int kindWidth = 100;
+        const int kindWidth = 250;
         const int CurveWidth = 200;
         private string[] display;
 

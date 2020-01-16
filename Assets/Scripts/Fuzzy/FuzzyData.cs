@@ -12,7 +12,7 @@ namespace FuzzyLogic
     [System.Serializable]
     public class FuzzyData
     {
-        public MembershipKind kind;
+        public Membership kind;
         public AnimationCurve membership;
 
         public int Kind_Start, Kind_End;
