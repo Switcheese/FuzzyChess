@@ -12,7 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef745429b5ab0314f9b42965cb7ec872, type: 3}
   m_Name: VisualField_Width
   m_EditorClassIdentifier: 
-  Kind_Start: 0
-  Kind_End: 0
-  fuzzyDatas: []
+  Kind_Start: 8
+  Kind_End: 10
+  fuzzyDatas:
+  - kind: 0
+    membership:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    Kind_Start: 8
+    Kind_End: 11
+  - kind: 1
+    membership:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    Kind_Start: 8
+    Kind_End: 11
+  - kind: 2
+    membership:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    Kind_Start: 8
+    Kind_End: 11
   rules: []

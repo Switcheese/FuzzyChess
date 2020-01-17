@@ -10,7 +10,8 @@ using FuzzyLogic;
 public class Manager : SingletonMono<Manager>
 {
     // -------------  Variable  ------------- 
-    
+    [SerializeField]
+    private ObjectPooler objectPooler = null;
     
 
     // -------------  Property  ------------- 
@@ -18,7 +19,10 @@ public class Manager : SingletonMono<Manager>
     {
         get { return FuzzyManager.Instance; }
     }
-
+    public ObjectPooler Pooler
+    {
+        get { return objectPooler; }
+    }
 
     // -------------  Behaviour  ------------- 
 

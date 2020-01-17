@@ -13,5 +13,32 @@ MonoBehaviour:
   m_Name: Personallity
   m_EditorClassIdentifier: 
   Kind_Start: 0
-  Kind_End: 0
-  fuzzyDatas: []
+  Kind_End: 2
+  fuzzyDatas:
+  - kind: 0
+    membership:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    Kind_Start: 0
+    Kind_End: 3
+  - kind: 0
+    membership:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    Kind_Start: 0
+    Kind_End: 3
+  - kind: 0
+    membership:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    Kind_Start: 0
+    Kind_End: 3

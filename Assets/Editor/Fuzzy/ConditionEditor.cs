@@ -11,7 +11,7 @@ namespace FuzzyLogic
     public class ConditionEditor : PropertyDrawer
     {
         const int classWidth = 200;
-        const int kindWidth = 100;
+        const int kindWidth = 250;
         public override void OnGUI(Rect pos, SerializedProperty property, GUIContent label)
         {
             EditorGUI.BeginProperty(pos, label, property);

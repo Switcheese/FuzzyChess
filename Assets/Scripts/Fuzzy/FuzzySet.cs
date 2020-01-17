@@ -12,8 +12,11 @@ namespace FuzzyLogic
     [CreateAssetMenu(fileName = "FuzzySet", menuName = "Fuzzy/FuzzySet")]
     public class FuzzySet : ScriptableObject
     {
+        //[SerializeField]
+       // private MembershipRange Kind_Start, Kind_End;
         [SerializeField]
-        private MembershipRange Kind_Start, Kind_End;
+        private DF_FuzzySet df_Fuzzy;
+        private int end;
         [SerializeField]
         protected FuzzyData[] fuzzyDatas;
         protected EnumDictionary<Membership, AnimationCurve> dicFuzzyData;
@@ -26,11 +29,11 @@ namespace FuzzyLogic
         }
         public int Start
         {
-            get { return (int)Kind_Start; }
+            get { return (int)df_Fuzzy; }
         }
         public int End
         {
-            get { return (int)Kind_End; }
+            get { return (int)end; }
         }
 
         private void OnEnable()
@@ -40,7 +43,7 @@ namespace FuzzyLogic
                 dicFuzzyData = new EnumDictionary<Membership, AnimationCurve>();
                 for (int i = 0; i < this.fuzzyDatas.Length; i++)
                 {
-                    var key = (Membership)((int)fuzzyDatas[i].kind + (int)this.Kind_Start);
+                    var key = (Membership)((int)fuzzyDatas[i].kind + (int)df_Fuzzy/*(int)this.Kind_Start*/);
                     if (!dicFuzzyData.ContainsKey(key))
                     {
                         dicFuzzyData.Add(key, fuzzyDatas[i].membership);
@@ -85,13 +88,25 @@ namespace FuzzyLogic
             }
         }
 
-        public void SetEnumStartEnd()
+        public void SetEditorEnum()
         {
             if (fuzzyDatas == null)
                 return;
             for (int i = 0; i < fuzzyDatas.Length; i++)
             {
-                fuzzyDatas[i].SetEnum((int)this.Kind_Start, (int)this.Kind_End + 1);
+                switch (df_Fuzzy)
+                {
+                    case DF_FuzzySet.Personality:
+                        this.end = (int)Membership.Personality_Distraction;
+                        break;
+                    case DF_FuzzySet.Fear:
+                        this.end = (int)Membership.Fear_Coward;
+                        break;
+                    case DF_FuzzySet.VisualAcuity:
+                        this.end = (int)Membership.VisualAcuity_Good;
+                        break;
+                }
+                fuzzyDatas[i].SetEnum((int)this.df_Fuzzy, this.end + 1);
             }
         }
     }

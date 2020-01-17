@@ -7,10 +7,10 @@ using UnityEngine;
 // 간단설명 :
 /*
     퍼지 추가시 규칙
-    1. 조건에 쓸 퍼지를 DF_FuzzySet 에 선언한다.
-    2. 규칙에 쓸 퍼지를 DF_FuzzyRule 에 선언한다.
-    3. 각 조건과 규칙에 쓸 함수 (Animation Curve 이름)을 Membership에 선언한다.
-    4. 각 조건과 규칙의 MemberShip의 시작과 끝값을 MemberShipRange에 선언한다.
+    1. 각 조건과 규칙에 쓸 함수 (Animation Curve 이름)을 Membership에 선언한다.
+    2. 조건에 쓸 퍼지를 DF_FuzzySet 에 선언한다.  enumValue = 각 Membership의 시작점
+    3. 규칙에 쓸 퍼지를 DF_FuzzyRule 에 선언한다. enumValue = 각 Membership의 시작점
+    4. FuzzySet, FuzzyRule 클래스의 SetEditorEnum 메소드에 Switch문에 Case를 추가하여 Membership의 끝지점을 지정해준다.
     5. FuzzyRule 스크립트의 GetWeight 메소드의 Switch Case에 각 규칙의 멤버쉽enum을 추가시켜준다.
      */
 
@@ -39,35 +39,16 @@ namespace FuzzyLogic
     }
 
     [System.Serializable]
-    public struct FuzzyFunction
+    public class FuzzyFunction
     {
         public DF_FuzzySet kind;
         public FuzzySet fuzzySet;
     }
     [System.Serializable]
-    public struct FuzzyRuleFunction
+    public class FuzzyRuleFunction
     {
         public DF_FuzzyRule kind;
         public FuzzyRule fuzzyRule;
-    }
-
-    /// <summary>
-    /// 조건에 쓸 퍼지 선언
-    /// </summary>
-    public enum DF_FuzzySet
-    {
-        Personality,
-        Fear,
-        VisualAcuity,
-
-    }
-    /// <summary>
-    /// 규칙에 쓸 퍼지 선언
-    /// </summary>
-    public enum DF_FuzzyRule
-    {
-        VisualField_Width,
-        VisualField_Distance,
     }
 
     /// <summary>
@@ -103,26 +84,48 @@ namespace FuzzyLogic
         VisualField_Distance_Far,         // 멀다
 
     }
+
+    /// <summary>
+    /// 조건에 쓸 퍼지 선언
+    /// enum의 시작지점을 지정해줍니다.
+    /// </summary>
+    public enum DF_FuzzySet
+    {
+        Personality = Membership.Personality_Strict,
+        Fear = Membership.Fear_Brave,
+        VisualAcuity = Membership.VisualAcuity_Bad,
+
+    }
+    /// <summary>
+    /// 규칙에 쓸 퍼지 선언
+    /// enum의 시작지점을 지정해줍니다.
+    /// </summary>
+    public enum DF_FuzzyRule
+    {
+        VisualField_Width = Membership.VisualField_Width_Narrow,
+        VisualField_Distance = Membership.VisualField_Distance_Close,
+    }
+    
     /// <summary>
     /// 퍼지 멤버십 함수 범위 선언
     /// </summary>
-    public enum MembershipRange
-    {
-        ST_Personality = Membership.Personality_Strict,
-        ED_Personality = Membership.Personality_Distraction,
+    //public enum MembershipRange
+    //{
+    //    ST_Personality = Membership.Personality_Strict,
+    //    ED_Personality = Membership.Personality_Distraction,
 
-        ST_Fear = Membership.Fear_Brave,
-        ED_Fear = Membership.Fear_Coward,
+    //    ST_Fear = Membership.Fear_Brave,
+    //    ED_Fear = Membership.Fear_Coward,
 
-        ST_VisualAcuity = Membership.VisualAcuity_Bad,
-        ED_VisualAcuity = Membership.VisualAcuity_Good,
+    //    ST_VisualAcuity = Membership.VisualAcuity_Bad,
+    //    ED_VisualAcuity = Membership.VisualAcuity_Good,
 
-        ST_VisualField_Width = Membership.VisualField_Width_Narrow,
-        ED_VisualField_Width = Membership.VisualField_Width_Wide,
+    //    ST_VisualField_Width = Membership.VisualField_Width_Narrow,
+    //    ED_VisualField_Width = Membership.VisualField_Width_Wide,
 
-        ST_VisualField_Distance = Membership.VisualField_Distance_Close,
-        ED_VisualField_Distance = Membership.VisualField_Distance_Far,
-    }
+    //    ST_VisualField_Distance = Membership.VisualField_Distance_Close,
+    //    ED_VisualField_Distance = Membership.VisualField_Distance_Far,
+    //}
 
     /// <summary>
     /// 규칙 연산 설정

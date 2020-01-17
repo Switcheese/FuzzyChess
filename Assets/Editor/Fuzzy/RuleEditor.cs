@@ -10,22 +10,11 @@ namespace FuzzyLogic
     [CustomPropertyDrawer(typeof(Rules))]
     public class RuleEditor : PropertyDrawer
     {
-        const int kindWidth = 100;
 
         public override void OnGUI(Rect pos, SerializedProperty property, GUIContent label)
         {
             EditorGUI.BeginProperty(pos, label, property);
             Rect contentPosition = pos;
-
-            //SerializedProperty v1 = property.FindPropertyRelative("v1");
-            //SerializedProperty v2 = property.FindPropertyRelative("v2");
-            //SerializedProperty cal = property.FindPropertyRelative("calculate");
-
-            //EditorGUI.PropertyField(
-            //    new Rect(pos.x, pos.y, 300, pos.height),
-            //    v1, GUIContent.none);
-
-
 
             if (property.isExpanded = EditorGUI.Foldout(pos, property.isExpanded, label))
             {

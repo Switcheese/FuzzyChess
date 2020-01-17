@@ -12,8 +12,11 @@ namespace FuzzyLogic
     [CreateAssetMenu(fileName = "FuzzyRule", menuName = "Fuzzy/FuzzyRule")]
     public class FuzzyRule : ScriptableObject
     {
+        //[SerializeField]
+        //private MembershipRange Kind_Start, Kind_End;
         [SerializeField]
-        private MembershipRange Kind_Start, Kind_End;
+        private DF_FuzzyRule df_FuzzyRule;
+        private int end;
         [SerializeField]
         protected FuzzyData[] fuzzyDatas;
         protected EnumDictionary<Membership, AnimationCurve> dicFuzzyData;
@@ -28,11 +31,11 @@ namespace FuzzyLogic
         }
         public int Start
         {
-            get { return (int)Kind_Start; }
+            get { return (int)df_FuzzyRule; }
         }
         public int End
         {
-            get { return (int)Kind_End; }
+            get { return (int)end; }
         }
 
         private void OnEnable()
@@ -42,7 +45,7 @@ namespace FuzzyLogic
                 dicFuzzyData = new EnumDictionary<Membership, AnimationCurve>();
                 for (int i = 0; i < this.fuzzyDatas.Length; i++)
                 {
-                    var key = (Membership)((int)fuzzyDatas[i].kind + (int)this.Kind_Start);
+                    var key = (Membership)((int)fuzzyDatas[i].kind + (int)df_FuzzyRule);
                     if (!dicFuzzyData.ContainsKey(key))
                     {
                         dicFuzzyData.Add(key, fuzzyDatas[i].membership);
@@ -85,17 +88,6 @@ namespace FuzzyLogic
                 return 0;
             }
         }
-
-        public void SetEnumStartEnd()
-        {
-            if (fuzzyDatas == null)
-                return;
-            for (int i = 0; i < fuzzyDatas.Length; i++)
-            {
-                fuzzyDatas[i].SetEnum((int)this.Kind_Start, (int)this.Kind_End + 1);
-            }
-        }
-        
         /// <summary>
         /// 해당 규칙의 무게중심을 계산한다.
         /// </summary>
@@ -177,7 +169,7 @@ namespace FuzzyLogic
             float resultVal = 0f;
             for (int i = 0; i < rules.Length; i++)
             {
-                var rstKind = (Membership)((int)rules[i].result + (int)this.Kind_Start);
+                var rstKind = (Membership)((int)rules[i].result + (int)this.df_FuzzyRule);
                 if (rstKind == kind)
                 {
                     resultVal = FuzzyCommon.OR(resultVal, rules[i].ExcuteCalculate());
@@ -185,5 +177,26 @@ namespace FuzzyLogic
             }
             return resultVal;
         }
+
+
+        public void SetEditorEnum()
+        {
+            if (fuzzyDatas == null)
+                return;
+            for (int i = 0; i < fuzzyDatas.Length; i++)
+            {
+                switch (df_FuzzyRule)
+                {
+                    case DF_FuzzyRule.VisualField_Width:
+                        this.end = (int)Membership.VisualField_Width_Wide;
+                        break;
+                    case DF_FuzzyRule.VisualField_Distance:
+                        this.end = (int)Membership.VisualField_Distance_Far;
+                        break;
+                }
+                fuzzyDatas[i].SetEnum((int)this.df_FuzzyRule, this.end + 1);
+            }
+        }
+
     }
 }
