@@ -39,13 +39,13 @@ namespace FuzzyLogic
     }
 
     [System.Serializable]
-    public class FuzzyFunction
+    public struct FuzzyFunction
     {
         public DF_FuzzySet kind;
         public FuzzySet fuzzySet;
     }
     [System.Serializable]
-    public class FuzzyRuleFunction
+    public struct FuzzyRuleFunction
     {
         public DF_FuzzyRule kind;
         public FuzzyRule fuzzyRule;

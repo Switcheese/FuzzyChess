@@ -12,8 +12,6 @@ namespace FuzzyLogic
     [CreateAssetMenu(fileName = "FuzzyRule", menuName = "Fuzzy/FuzzyRule")]
     public class FuzzyRule : ScriptableObject
     {
-        //[SerializeField]
-        //private MembershipRange Kind_Start, Kind_End;
         [SerializeField]
         private DF_FuzzyRule df_FuzzyRule;
         private int end;
@@ -132,8 +130,6 @@ namespace FuzzyLogic
             return cardinal / ordinal;
 
         }
-
-
         private float GetKeyMaxAverage(Membership kind)
         {
             if (dicFuzzyData.ContainsKey(kind))
@@ -158,7 +154,6 @@ namespace FuzzyLogic
 #endif
             return 0f;
         }
-
         /// <summary>
         /// 신뢰도 구하기
         /// </summary>
@@ -177,8 +172,6 @@ namespace FuzzyLogic
             }
             return resultVal;
         }
-
-
         public void SetEditorEnum()
         {
             if (fuzzyDatas == null)
@@ -197,6 +190,5 @@ namespace FuzzyLogic
                 fuzzyDatas[i].SetEnum((int)this.df_FuzzyRule, this.end + 1);
             }
         }
-
     }
 }

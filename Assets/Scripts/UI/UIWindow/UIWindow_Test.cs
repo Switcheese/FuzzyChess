@@ -1,32 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FuzzyLogic;
-using Managers;
 
-// 작성일자 : 2020-01-16-PM-12-52
+// 작성일자 : 2020-01-29-PM-4-43
 // 작성자   : 배형영
 // 간단설명 :
 
-public class Manager : SingletonMono<Manager>
+public class UIWindow_Test : UIBase
 {
     // -------------  Variable  ------------- 
-    [SerializeField]
-    private ObjectPooler objectPooler = null;
+
+
 
     // -------------  Property  ------------- 
-    public FuzzyManager Fuzzy
-    {
-        get { return FuzzyManager.Instance; }
-    }
-    public ObjectPooler Pooler
-    {
-        get { return objectPooler; }
-    }
-    public static UIManager UI
-    {
-        get { return UIManager.Instance; }
-    }
+
+
 
     // -------------  Behaviour  ------------- 
 
@@ -42,6 +30,12 @@ public class Manager : SingletonMono<Manager>
 
     // -------------  Public Method  ------------- 
 
+    public override void OpenUI()
+    {
+        base.OpenUI();
+        this.Kind = UI_Kind.UIWindow_Test;
+        this.Option = UI_Option.CallBackClose;
+    }
 
 
 }

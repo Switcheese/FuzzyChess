@@ -16,7 +16,7 @@ public class ObjectPooler : MonoBehaviour
         EffectPooler,
     }
     [System.Serializable]
-    private class Poolers
+    private struct Poolers
     {
         public PoolerKind kind;
         public GameObject objPooler;

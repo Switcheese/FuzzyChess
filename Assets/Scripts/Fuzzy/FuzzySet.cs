@@ -12,11 +12,9 @@ namespace FuzzyLogic
     [CreateAssetMenu(fileName = "FuzzySet", menuName = "Fuzzy/FuzzySet")]
     public class FuzzySet : ScriptableObject
     {
-        //[SerializeField]
-       // private MembershipRange Kind_Start, Kind_End;
         [SerializeField]
         private DF_FuzzySet df_Fuzzy;
-        private int end;
+        private int end;    // enum 제한 지점
         [SerializeField]
         protected FuzzyData[] fuzzyDatas;
         protected EnumDictionary<Membership, AnimationCurve> dicFuzzyData;
@@ -43,7 +41,7 @@ namespace FuzzyLogic
                 dicFuzzyData = new EnumDictionary<Membership, AnimationCurve>();
                 for (int i = 0; i < this.fuzzyDatas.Length; i++)
                 {
-                    var key = (Membership)((int)fuzzyDatas[i].kind + (int)df_Fuzzy/*(int)this.Kind_Start*/);
+                    var key = (Membership)((int)fuzzyDatas[i].kind + (int)df_Fuzzy);
                     if (!dicFuzzyData.ContainsKey(key))
                     {
                         dicFuzzyData.Add(key, fuzzyDatas[i].membership);
